@@ -67,6 +67,7 @@ jobs:
     env:
       DBT_PROFILES_DIR: .
       GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_EVENT_NAME: ${{ github.event_name }}
     steps:
       - uses: actions/checkout@v4
 
@@ -99,6 +100,8 @@ jobs:
       contents: read
     env:
       DBT_PROFILES_DIR: .
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_EVENT_NAME: ${{ github.event_name }}
     steps:
       - uses: actions/checkout@v4
 
