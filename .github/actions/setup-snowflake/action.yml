@@ -112,8 +112,12 @@ runs:
         if [[ -n "${{ inputs.snowflake-warehouse }}" ]]; then echo "SNOWFLAKE_WAREHOUSE=${{ inputs.snowflake-warehouse }}" >> $GITHUB_ENV; fi
 
     # ---- Step 5: Verify connection ----
+    # Don't pass SNOWFLAKE_SCHEMA — the test only verifies auth, and the
+    # dbt macro creates schemas dynamically (CI_<actor>). A fixed schema
+    # like "CI" may not exist yet, which would fail the test unnecessarily.
     - name: Test Snowflake connection
       shell: bash
       env:
         SNOWFLAKE_ACCOUNT: ${{ inputs.snowflake-account }}
+        SNOWFLAKE_SCHEMA: ''
       run: snow connection test -x
