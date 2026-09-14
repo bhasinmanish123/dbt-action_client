@@ -20,7 +20,7 @@ description: "Installs Snowflake CLI, fetches WIF OIDC token, sets connection en
 
 inputs:
   environment:
-    description: "Target environment: ci, test or prod"
+    description: "Target environment: ci, dev, test or prod"
     required: true
   snowflake-account:
     description: "Snowflake account identifier"
@@ -89,6 +89,13 @@ runs:
             echo "SNOWFLAKE_WAREHOUSE=COMPUTE_WH"              >> $GITHUB_ENV
             echo "SNOWFLAKE_SCHEMA=CI"                         >> $GITHUB_ENV
             ;;
+          "dev")
+            echo "SNOWFLAKE_USER=GITHUB_ACTIONS_SERVICE_USER"  >> $GITHUB_ENV
+            echo "SNOWFLAKE_ROLE=DBT_DEV_ROLE"                 >> $GITHUB_ENV
+            echo "SNOWFLAKE_DATABASE=AIRBNB"                   >> $GITHUB_ENV
+            echo "SNOWFLAKE_WAREHOUSE=COMPUTE_WH"              >> $GITHUB_ENV
+            echo "SNOWFLAKE_SCHEMA=MAIN"                       >> $GITHUB_ENV
+            ;;
           "test")
             echo "SNOWFLAKE_USER=GITHUB_ACTIONS_SERVICE_USER"  >> $GITHUB_ENV
             echo "SNOWFLAKE_ROLE=DBT_TEST_ROLE"                >> $GITHUB_ENV
@@ -104,7 +111,7 @@ runs:
             echo "SNOWFLAKE_SCHEMA=MAIN"                       >> $GITHUB_ENV
             ;;
           *)
-            echo "::error::Invalid environment '${{ inputs.environment }}'. Must be: ci, test or prod"
+            echo "::error::Invalid environment '${{ inputs.environment }}'. Must be: ci, dev, test or prod"
             exit 1
             ;;
         esac
