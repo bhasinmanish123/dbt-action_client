@@ -94,14 +94,14 @@ runs:
             echo "SNOWFLAKE_ROLE=DBT_TEST_ROLE"                >> $GITHUB_ENV
             echo "SNOWFLAKE_DATABASE=TEST"                     >> $GITHUB_ENV
             echo "SNOWFLAKE_WAREHOUSE=COMPUTE_WH"              >> $GITHUB_ENV
-            echo "SNOWFLAKE_SCHEMA=PUBLIC"                     >> $GITHUB_ENV
+            echo "SNOWFLAKE_SCHEMA=MAIN"                       >> $GITHUB_ENV
             ;;
           "prod")
             echo "SNOWFLAKE_USER=GITHUB_ACTIONS_SERVICE_USER"  >> $GITHUB_ENV
             echo "SNOWFLAKE_ROLE=DBT_PROD_ROLE"                >> $GITHUB_ENV
             echo "SNOWFLAKE_DATABASE=PROD"                     >> $GITHUB_ENV
             echo "SNOWFLAKE_WAREHOUSE=COMPUTE_WH"              >> $GITHUB_ENV
-            echo "SNOWFLAKE_SCHEMA=PUBLIC"                     >> $GITHUB_ENV
+            echo "SNOWFLAKE_SCHEMA=MAIN"                       >> $GITHUB_ENV
             ;;
           *)
             echo "::error::Invalid environment '${{ inputs.environment }}'. Must be: ci, test or prod"
